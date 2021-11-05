@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from "axios";
 import styled from 'styled-components';
@@ -23,7 +23,7 @@ const StyledApp = styled.div`
   font-family: "Times New Roman", serif;
  }
 
- .header {
+ .Header {
   font-family: "Tahoma", sans-serif;
   font-weight: 600;
   font-size: 4rem;
@@ -37,7 +37,7 @@ const StyledApp = styled.div`
       text-decoration: 1px underline black, 1px underline black;
       font-family: "Didot", serif;
     }
-    .header {
+    .Header {
       font-size: 4rem;
       color: #00FF44;
     }
@@ -54,7 +54,7 @@ const StyledApp = styled.div`
       border: 2px #777777;
       font-family: "Impact", sans-serif;
     }
-    .header {
+    .Header {
       font-size: 3.4rem;
       color: #44FF88;
     }
@@ -70,7 +70,7 @@ const StyledApp = styled.div`
       border: 2px #555555;
       font-family: "Tahoma", sans-serif;
     }
-    .header {
+    .Header {
       font-size: 3rem;
       color: #88FFBB;
     }
@@ -86,7 +86,7 @@ const StyledApp = styled.div`
       border: 1px #444444;
       font-family: "Arial", sans-serif;
     }
-    .header {
+    .Header {
       font-size: 2rem;
       font-weight: 400;
       color: whitesmoke;
@@ -98,11 +98,18 @@ const StyledApp = styled.div`
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
-  axios.get(``)
+  const [swData, setSwData] = useState([])
   // Fetch characters from the API in an effect hook. Remember, anytime you have a 
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
-
+  useEffect( () => {
+    axios.get(`[GET] https://swapi.dev/api/people`)
+      .then( resp => {
+        console.log(resp.data);
+      })
+      .catch( err => console.error(err))
+    }, []
+  ) 
   return (
     <StyledApp className="App">
       <h1 className="Header">CHARACTERS</h1>
