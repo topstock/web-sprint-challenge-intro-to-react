@@ -4,31 +4,31 @@ import axios from "axios";
 import styled from 'styled-components';
 
 const StyledApp = styled.div`
-.App {
-  font-size: large;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  text-align: start;
-  line-height: 1.5rem;
-  text-decoration: 2px underline black, 2px underline black;
-  background-color: slategray;
-  color: palegreen;
-  border: 2px lightgray;
-  margin: 5vw;
-  padding: 1vw;
-  box-sizing: border-box;
-  border-radius: 2px;
-  font-family: "Times New Roman", serif;
- }
+  .App {
+    font-size: large;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: start;
+    line-height: 1.5rem;
+    text-decoration: 2px underline black, 2px underline black;
+    background-color: slategray;
+    color: palegreen;
+    border: 2px lightgray;
+    margin: 5vw;
+    padding: 1vw;
+    box-sizing: border-box;
+    border-radius: 2px;
+    font-family: "Times New Roman", serif;
+  }
 
  .Header {
-  font-family: "Tahoma", sans-serif;
-  font-weight: 600;
-  font-size: 4rem;
-  color: green;
- }
+    font-family: "Tahoma", sans-serif;
+    font-weight: 600;
+    font-size: 4rem;
+    color: green;
+  }
 
   @media (max-width: 1200px) {
     .App {
@@ -47,8 +47,8 @@ const StyledApp = styled.div`
     .App {
       text-decoration: none;
       line-height: 1.2rem;
-      color: teal;
-      background-color: #444444;
+      color: darkslateblue;
+      background-color: rgba( 0,0,0,0.5);
       padding: 0.5vw;
       margin: 2.5vw;
       border: 2px #777777;
@@ -56,15 +56,15 @@ const StyledApp = styled.div`
     }
     .Header {
       font-size: 3.4rem;
-      color: #44FF88;
+      color: #FF8844;
     }
   }
 
   @media (max-width: 500px) {
     .App {
       line-height: 1.2rem;
-      color: green;
-      background-color: #222222;
+      color: darkorange;
+      background-color: rgba( 0,0,0,0.6);;
       padding: 0vw;
       margin: 1vw;
       border: 2px #555555;
@@ -72,7 +72,7 @@ const StyledApp = styled.div`
     }
     .Header {
       font-size: 3rem;
-      color: #88FFBB;
+      color: #FFBB88;
     }
   }
 
@@ -80,7 +80,7 @@ const StyledApp = styled.div`
     .App {
       line-height: 1.2rem;
       color: green;
-      background-color: #111111;
+      background-color: rgba( 0,0,0,0.7);;
       padding: 0vw;
       margin: 0.5vw;
       border: 1px #444444;
@@ -93,8 +93,6 @@ const StyledApp = styled.div`
     }
   }
 `
-
-
 const App = () => {
   // Try to think through what state you'll need for this app before starting. Then build out
   // the state properties here.
@@ -103,9 +101,11 @@ const App = () => {
   // side effect in a component, you want to think about which state and/or props it should
   // sync up with, if any.
   useEffect( () => {
-    axios.get(`[GET] https://swapi.dev/api/people`)
+    axios.get(`https://swapi.dev/api/people/`)
       .then( resp => {
-        console.log(resp.data);
+        setSwData( resp.data.map( character => [character.name, character.birth_year])
+        );
+        console.log(swData);
       })
       .catch( err => console.error(err))
     }, []
